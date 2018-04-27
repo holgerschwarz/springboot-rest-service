@@ -2,10 +2,11 @@ package de.holger.city;
 
 
 import de.holger.city.model.CityDto;
+import de.holger.city.services.ServicesCities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,28 +15,20 @@ import java.util.List;
 @RequestMapping(path="/v1/cities")
 public class Controller {
 
+    @Autowired
+    private ServicesCities servicesCities;
+
     @RequestMapping( method = RequestMethod.GET)
     List<CityDto> getAllCities() {
-        CityDto cityDto = new CityDto();
-        cityDto.setCityname("Monheim");
-        cityDto.setPopulation(40000L);
-        List<CityDto> cities= new ArrayList<>();
-        cities.add(cityDto);
+        return servicesCities.getAllCities();
 
-        return cities;
     }
 
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/{name}",method = RequestMethod.GET)
     CityDto getCity(@PathVariable String name) {
-
-
-        CityDto cityDto = new CityDto();
-        cityDto.setCityname(name);
-        cityDto.setPopulation(40000L);
-
-        return cityDto;
+        return servicesCities.getCity("Berlin");
     }
 
 
