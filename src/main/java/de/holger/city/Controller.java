@@ -2,6 +2,7 @@ package de.holger.city;
 
 
 import de.holger.city.model.CityDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,8 +25,12 @@ public class Controller {
         return cities;
     }
 
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/{name}",method = RequestMethod.GET)
     CityDto getCity(@PathVariable String name) {
+
+
         CityDto cityDto = new CityDto();
         cityDto.setCityname(name);
         cityDto.setPopulation(40000L);
