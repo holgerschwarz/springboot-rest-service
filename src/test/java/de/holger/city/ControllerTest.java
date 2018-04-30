@@ -2,23 +2,20 @@ package de.holger.city;
 
 
 import io.restassured.RestAssured;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static io.restassured.RestAssured.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ComponentScan("de.holger.city.services.ServicesCitiesStub")
+@ActiveProfiles("TEST_STUB")
 public class ControllerTest {
 
     @LocalServerPort
@@ -37,12 +34,12 @@ public class ControllerTest {
 
     @Test
     public void restCitiesMitStadnameMitStatusCode202Zurueckgeben() {
-        when().get("/v1/cities/essen").then().statusCode(202);
+        when().get("/v1/cities/xyzTest").then().statusCode(404);
     }
 
     @Test
     public void restCitiesMitStadnameMitStatusCode200Zurueckgeben() {
-        when().get("/v1/cities/Langenfeld").then().statusCode(200);
+        when().get("/v1/cities/abcTest").then().statusCode(200);
     }
 
 }
